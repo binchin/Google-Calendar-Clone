@@ -1,0 +1,17 @@
+<h2 mat-dialog-title>Delete Appointment</h2>
+<mat-dialog-content>
+  Would you like to delete this appointment?
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button
+    mat-button
+    mat-dialog-close
+    class="delete-btn"
+    color="primary"
+    (click)="deleteAppointment()"
+    cdkFocusInitial
+  >
+    Delete
+  </button>
+</mat-dialog-actions>

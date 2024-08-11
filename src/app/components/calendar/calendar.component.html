@@ -1,0 +1,48 @@
+<app-add-appointment
+  (appointmentAdded)="onAppointmentAdd($event)"
+></app-add-appointment>
+
+<div class="calendar">
+  <div class="calendar-header">
+    <button mat-raised-button color="accent" (click)="prevMonth()">
+      <span class="material-symbols-outlined">chevron_left</span>
+    </button>
+    <span class="month-name">{{
+      currentMonth$ | async | date : "MMMM yyyy"
+    }}</span>
+    <button mat-raised-button color="accent" (click)="nextMonth()">
+      <span class="material-symbols-outlined">chevron_right</span>
+    </button>
+  </div>
+  <div class="calendar-grid day-names">
+    <div class="day-name" *ngFor="let day of dayNames">{{ day }}</div>
+  </div>
+
+  <div class="calendar-grid">
+    <div *ngFor="let _ of emptySpaces"></div>
+    <div class="date-wrapper" *ngFor="let day of daysInMonth$ | async">
+      <div class="date">{{ day.date | date : "d" }}</div>
+      <div
+        class="appointments"
+        cdkDropList
+        [cdkDropListData]="day.appointments"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div
+          *ngFor="let appointment of day.appointments"
+          class="event-item"
+          cdkDrag
+        >
+          {{ appointment.title }}
+          <span
+            tabindex="0"
+            (keyup)="deleteAppointment(appointment)"
+            (click)="deleteAppointment(appointment)"
+            class="material-symbols-outlined"
+            >delete</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
